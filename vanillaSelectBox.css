@@ -24,6 +24,7 @@ li[data-parent].open:not(.hidden-search){
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   border-radius:4px;
   font-size : 11px;
+  font-family: 'Open Sans';
 }
 
 .vsb-js-search-zone{
@@ -51,7 +52,8 @@ li[data-parent].open:not(.hidden-search){
 }
 
 .vsb-menu li:hover {
-	background: linear-gradient(#f5f5f5, #e8e8e8);
+	background: transparent;
+	color: #C9A258;
 }
 
 .vsb-menu ul{
@@ -60,9 +62,10 @@ li[data-parent].open:not(.hidden-search){
 	white-space: nowrap;
 	margin:0px;
 	margin-top:4px;
-	padding-left:10px;
+	padding-left:6px;
 	padding-right:10px;
-	padding-bottom:3px;
+	padding-bottom:10px;
+	padding-top:10px;
 	color: #333;
 	cursor:pointer;
 	overflow-y:auto;
@@ -86,17 +89,15 @@ li.short{
 }
 
 .vsb-main button{
-	min-width: 120px;
-	border-radius: 0;
-	width: 100%;
-	text-align: left;
-	z-index: 1;
-	color: #333;
-	background: white !important;
-	border: 1px solid #999 !important;
-	line-height:20px;
-	font-size:14px;
-	padding:6px 12px;
+	border: 0;
+	height: 38px;
+}
+
+.vsb-main .title {
+	font-family: 'Open Sans';
+	color: #000;
+	font-size: 14px;
+	font-weight: normal;
 }
 
 .vsb-main button.disabled{
@@ -110,7 +111,7 @@ li.short{
 }
 
 .vsb-main li:hover {
-	background: linear-gradient(#f5f5f5, #e8e8e8);
+	background: transparent;
 }
 
 .vsb-main ul{
@@ -206,7 +207,7 @@ li.short{
 	font-size: 14px;
 	background-color: #fff;
 	min-height:1.4em;
-	padding: 0.2em 2em 0.2em 26px;
+	padding: 0.2em 0.2em 0.2em 26px;
 }
 
 .vsb-menu .multi li.grouped-option {
@@ -221,35 +222,18 @@ li.short{
 	color:rgb(52, 31, 112);
 }
 
-.vsb-menu .multi li:not(.grouped-option)::before{
-	content: "";
-	display: inline-block;
-	font-size: inherit;
-	float:left;
-	font-weight:bold;
-	margin-left:-22px;
-	margin-right:2px;
-	border : 1px solid;
-	border-radius : 3px;
-	padding : 7px;
-	margin-top:0px;
-	color:black;
-}
-
 .vsb-menu .multi li:not(.grouped-option).active::after {
 	content: "";
 	display: inline-block;
 	font-size: inherit;
-	color: #333;
-	float:left;
+	float: left;
 	margin-left:-18px;
-	display: inline-block;
+	margin-top: 1px;
 	transform: rotate(45deg);
-	margin-top:1px;
-	height: 8px;
-	width:  5px;
-	border-bottom: 3px solid black;
-	border-right:  3px solid black;
+	height: 14px;
+	width: 7px;
+	border-bottom: 3px solid #C9A258;
+	border-right: 3px solid #C9A258;
 }
 
 .caret {
@@ -269,3 +253,6 @@ li[data-parent]{
 	padding-left: 50px !important;
 }
 
+.select:not(.is-multiple):not(.is-loading)::after, .navbar-link:not(.is-arrowless)::after {
+	content: unset;
+}
