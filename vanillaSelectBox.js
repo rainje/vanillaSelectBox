@@ -1,23 +1,23 @@
 /*
 Copyright (C) Philippe Meyer 2019-2021
-Distributed under the MIT License 
+Distributed under the MIT License
 
-vanillaSelectBox : v0.75 : Remote search ready + local search modification : when a check on optgroup checks children only 
+vanillaSelectBox : v0.75 : Remote search ready + local search modification : when a check on optgroup checks children only
                            if they not excluded from search.
 vanillaSelectBox : v0.72 : Remote search (WIP) bugfix [x] Select all duplicated
 vanillaSelectBox : v0.71 : Remote search (WIP) better code
 vanillaSelectBox : v0.70 : Remote search (WIP) for users to test
 vanillaSelectBox : v0.65 : Two levels: bug fix : groups are checked/unchecked when check all/uncheck all is clicked
-vanillaSelectBox : v0.64 : Two levels: groups are now checkable to check/uncheck the children options 
+vanillaSelectBox : v0.64 : Two levels: groups are now checkable to check/uncheck the children options
 vanillaSelectBox : v0.63 : Two levels: one click on the group selects / unselects children
 vanillaSelectBox : v0.62 : New option: maxOptionWidth set a maximum width for each option for narrow menus
 vanillaSelectBox : v0.61 : New option: maxSelect, set a maximum to the selectable options in a multiple choice menu
-vanillaSelectBox : v0.60 : Two levels: Optgroups are now used to show two level dropdowns 
+vanillaSelectBox : v0.60 : Two levels: Optgroups are now used to show two level dropdowns
 vanillaSelectBox : v0.59 : Bug fix : search box was overlapping first item in single selects
 vanillaSelectBox : v0.58 : Bug fixes
 vanillaSelectBox : v0.57 : Bug fix (minWidth option not honored)
 vanillaSelectBox : v0.56 : The multiselect checkboxes are a little smaller, maxWidth option is now working + added minWidth option as well
-                           The button has now a style attribute to protect its appearance 
+                           The button has now a style attribute to protect its appearance
 vanillaSelectBox : v0.55 : All attributes from the original select options are copied to the selectBox element
 vanillaSelectBox : v0.54 : if all the options of the select are selected by the user then the check all checkbox is checked
 vanillaSelectBox : v0.53 : if all the options of the select are selected then the check all checkbox is checked
@@ -94,7 +94,6 @@ function vanillaSelectBox(domSelector, options) {
     this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value", "style"];
     this.forbidenClasses = ["active", "disabled"];
     this.userOptions = {
-        maxWidth: 500,
         minWidth: -1,
         maxHeight: 400,
         translations: { "all": "All", "items": "items", "selectAll": "Select All", "clearAll": "Clear All" },
@@ -134,7 +133,7 @@ function vanillaSelectBox(domSelector, options) {
             if (options.remote.onInit!= undefined && typeof options.remote.onInit === 'function') {
                 this.onInit = options.remote.onInit;
                 this.isInitRemote = true;
-            } 
+            }
             if (options.remote.onInitSize != undefined) {
                 this.onInitSize = options.remote.onInitSize;
                 if (this.onInitSize < 3) this.onInitSize = 3;
@@ -184,17 +183,17 @@ function vanillaSelectBox(domSelector, options) {
         let cssArray = [];
         if (selector === ".vsb-main button") {
             cssArray = [
-                { "key": "min-width", "value": "120px" },
-                { "key": "border-radius", "value": "0" },
-                { "key": "width", "value": "100%" },
-                { "key": "text-align", "value": "left" },
-                { "key": "z-index", "value": "1" },
-                { "key": "color", "value": "#333" },
-                { "key": "background", "value": "white !important" },
-                { "key": "border", "value": "1px solid #999 !important" },
-                { "key": "line-height", "value": "20px" },
-                { "key": "font-size", "value": "14px" },
-                { "key": "padding", "value": "6px 12px" }
+                // { "key": "min-width", "value": "120px" },
+                // { "key": "border-radius", "value": "0" },
+                // { "key": "width", "value": "100%" },
+                // { "key": "text-align", "value": "left" },
+                // { "key": "z-index", "value": "1" },
+                // { "key": "color", "value": "#333" },
+                // { "key": "background", "value": "white !important" },
+                // { "key": "border", "value": "1px solid #999 !important" },
+                // { "key": "line-height", "value": "20px" },
+                // { "key": "font-size", "value": "14px" },
+                // { "key": "padding", "value": "6px 12px" }
             ]
         }
 
@@ -233,6 +232,7 @@ function vanillaSelectBox(domSelector, options) {
         this.main = document.createElement("div");
         this.root.parentNode.insertBefore(this.main, this.root.nextSibling);
         this.main.classList.add("vsb-main");
+        this.main.classList.add("is-fullwidth");
         this.main.setAttribute("id", "btn-group-" + this.rootToken);
         this.main.style.marginLeft = this.main.style.marginLeft;
         if (self.userOptions.stayOpen) {
@@ -245,6 +245,9 @@ function vanillaSelectBox(domSelector, options) {
             this.button = document.createElement("button");
             var cssList = self.getCssArray(".vsb-main button");
             this.button.setAttribute("style", cssList);
+            this.button.classList.add('button');
+            this.button.classList.add('is-fullwidth');
+            this.button.classList.add('is-justify-content-start');
         }
         this.button.style.maxWidth = this.userOptions.maxWidth + "px";
         if (this.userOptions.minWidth !== -1) {
@@ -255,13 +258,14 @@ function vanillaSelectBox(domSelector, options) {
         this.title = document.createElement("span");
         this.button.appendChild(this.title);
         this.title.classList.add("title");
-        let caret = document.createElement("span");
-        this.button.appendChild(caret);
+        // let caret = document.createElement("span");
+        // this.button.appendChild(caret);
 
-        caret.classList.add("caret");
-        caret.style.position = "absolute";
-        caret.style.right = "8px";
-        caret.style.marginTop = "8px";
+        // caret.classList.add("caret");
+        // caret.style.position = "absolute";
+        // caret.style.right = "8px";
+        // caret.style.marginTop = "8px";
+        // caret.style.display = "none";
 
         if (self.userOptions.stayOpen) {
             caret.style.display = "none";
@@ -693,13 +697,13 @@ vanillaSelectBox.prototype.buildSelect = function (data) {
     if(!self.isOptgroups){
         self.isOptgroups = data[0].parent != undefined && data[0].parent != "";
     }
-  
+
     if(self.isOptgroups){
         let groups = {};
         data = data.filter(function(x){
             return x.parent != undefined && x.parent != "";
         });
-    
+
         data.forEach(function (x) {
             if(!groups[x.parent]){
                 groups[x.parent] = true;
@@ -709,7 +713,7 @@ vanillaSelectBox.prototype.buildSelect = function (data) {
         for (let group in groups) {
             let anOptgroup = document.createElement("optgroup");
             anOptgroup.setAttribute("label", group);
-            
+
             options = data.filter(function(x){
                 return x.parent == group;
             });
@@ -812,7 +816,7 @@ vanillaSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
     if (data == null || data.length == 0) return;
     while(self.root.firstChild)
     self.root.removeChild(self.root.firstChild);
-    
+
     self.buildSelect(data);
     self.reloadTree();
 }
@@ -1282,7 +1286,7 @@ vanillaSelectBox.prototype.empty = function () {
         this.title.textContent = this.userOptions.placeHolder;
     }
     this.checkUncheckAll();
-    this.privateSendChange();
+    // this.privateSendChange();
 }
 
 vanillaSelectBox.prototype.destroy = function () {
