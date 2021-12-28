@@ -61,7 +61,7 @@ let VSBoxCounter = function () {
     };
 }();
 
-export default function vanillaSelectBox(domSelector, options) {
+function vanillaSelectBox(domSelector, options) {
     let self = this;
     this.instanceOffset = VSBoxCounter.set(self);
     this.domSelector = domSelector;
