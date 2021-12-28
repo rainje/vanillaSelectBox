@@ -61,7 +61,7 @@ let VSBoxCounter = function () {
     };
 }();
 
-function vanillaSelectBox(domSelector, options) {
+export default function vanillaSelectBox(domSelector, options) {
     let self = this;
     this.instanceOffset = VSBoxCounter.set(self);
     this.domSelector = domSelector;
@@ -256,12 +256,12 @@ function vanillaSelectBox(domSelector, options) {
             this.button = document.createElement("div");
         } else {
             this.button = document.createElement("button");
+            this.button.classList.add('button');
+            this.button.classList.add('is-fullwidth');
+            this.button.classList.add('is-justify-content-start');
             if(self.userOptions.keepInlineStyles){
                 var cssList = self.getCssArray(".vsb-main button");
                 this.button.setAttribute("style", cssList);
-                this.button.classList.add('button');
-                this.button.classList.add('is-fullwidth');
-                this.button.classList.add('is-justify-content-start');
             }
         }
         this.button.style.maxWidth = this.userOptions.maxWidth + "px";
