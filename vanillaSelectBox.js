@@ -2,6 +2,9 @@
 Copyright (C) Philippe Meyer 2019-2021
 Distributed under the MIT License
 
+vanillaSelectBox : v0.78 : Stop using inline styles in the main button. You can steal use keepInlineStyles:true to use the legacy behaviour
+vanillaSelectBox : v0.77 : Work on place holder with bastoune help => still seems to lose placeholder value on multiple dropdown checkall
+vanillaSelectBox : v0.76 : New changeTree function : to rebuild the original tree with new data + correcting empty() function
 vanillaSelectBox : v0.75 : Remote search ready + local search modification : when a check on optgroup checks children only
                            if they not excluded from search.
 vanillaSelectBox : v0.72 : Remote search (WIP) bugfix [x] Select all duplicated
@@ -56,9 +59,9 @@ let VSBoxCounter = function () {
             });
         }
     };
-}();
+  }();
 
-export default function vanillaSelectBox(domSelector, options) {
+  function vanillaSelectBox(domSelector, options) {
     let self = this;
     this.instanceOffset = VSBoxCounter.set(self);
     this.domSelector = domSelector;
@@ -94,15 +97,22 @@ export default function vanillaSelectBox(domSelector, options) {
     this.forbidenAttributes = ["class", "selected", "disabled", "data-text", "data-value", "style"];
     this.forbidenClasses = ["active", "disabled"];
     this.userOptions = {
+        maxWidth: 500,
         minWidth: -1,
         maxHeight: 400,
         translations: { "all": "All", "items": "items", "selectAll": "Select All", "clearAll": "Clear All" },
         search: false,
         placeHolder: "",
         stayOpen: false,
-        disableSelectAll: false
+        disableSelectAll: false,
+        keepInlineStyles: false // to protect the main button style
     }
     if (options) {
+        if(options.keepInlineStyles != undefined){
+            if(options.keepInlineStyles){
+                this.userOptions.keepInlineStyles = true;
+            }
+        }
         if (options.maxWidth != undefined) {
             this.userOptions.maxWidth = options.maxWidth;
         }
@@ -179,6 +189,9 @@ export default function vanillaSelectBox(domSelector, options) {
     }
 
     this.getCssArray = function (selector) {
+        var myRules = document.styleSheets;
+
+        console.log(myRules);
         // Why inline css ? To protect the button display from foreign css files
         let cssArray = [];
         if (selector === ".vsb-main button") {
@@ -243,11 +256,13 @@ export default function vanillaSelectBox(domSelector, options) {
             this.button = document.createElement("div");
         } else {
             this.button = document.createElement("button");
-            var cssList = self.getCssArray(".vsb-main button");
-            this.button.setAttribute("style", cssList);
-            this.button.classList.add('button');
-            this.button.classList.add('is-fullwidth');
-            this.button.classList.add('is-justify-content-start');
+            if(self.userOptions.keepInlineStyles){
+                var cssList = self.getCssArray(".vsb-main button");
+                this.button.setAttribute("style", cssList);
+                this.button.classList.add('button');
+                this.button.classList.add('is-fullwidth');
+                this.button.classList.add('is-justify-content-start');
+            }
         }
         this.button.style.maxWidth = this.userOptions.maxWidth + "px";
         if (this.userOptions.minWidth !== -1) {
@@ -265,7 +280,6 @@ export default function vanillaSelectBox(domSelector, options) {
         // caret.style.position = "absolute";
         // caret.style.right = "8px";
         // caret.style.marginTop = "8px";
-        // caret.style.display = "none";
 
         if (self.userOptions.stayOpen) {
             caret.style.display = "none";
@@ -811,6 +825,19 @@ vanillaSelectBox.prototype.removeOptionsNotChecked = function (data) {
     }
 }
 
+vanillaSelectBox.prototype.changeTree = function (data, options) {
+    let self = this;
+    self.empty();
+    self.remoteSearchIntegrateIt(data);
+    if (options && options.onSearch) {
+        if (typeof options.onSearch === 'function') {
+            self.onSearch = options.onSearch;
+            self.isSearchRemote = true;
+        }
+    }
+    self.listElements = this.drop.querySelectorAll("li:not(.grouped-option)");
+}
+
 vanillaSelectBox.prototype.remoteSearchIntegrateIt = function (data) {
     let self = this;
     if (data == null || data.length == 0) return;
@@ -905,7 +932,6 @@ vanillaSelectBox.prototype.reloadTree = function () {
         }
         self.listElements = this.drop.querySelectorAll("li:not(.grouped-option)");
     } else {
-
         self.options = self.root.querySelectorAll("option");
         Array.prototype.slice.call(self.options).forEach(function (x) {
             let text = x.textContent;
@@ -1168,6 +1194,8 @@ vanillaSelectBox.prototype.setValue = function (values) {
                                         values.push(value);
                                     }
                                 }
+                            }else{
+                                x.classList.add("active");
                             }
                         } else if (x.classList.contains('grouped-option')) {
                             x.classList.add("checked");
@@ -1236,12 +1264,15 @@ vanillaSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                if (x.getAttribute("data-value") == values) {
-                    x.classList.add("active");
-                    found = true;
-                    text = x.getAttribute("data-text")
-                } else {
-                    x.classList.remove("active");
+                let liVal = x.getAttribute("data-value");
+                if(liVal !== "all"){
+                    if (liVal == values) {
+                        x.classList.add("active");
+                        found = true;
+                        text = x.getAttribute("data-text")
+                    } else {
+                        x.classList.remove("active");
+                    }
                 }
             });
             Array.prototype.slice.call(self.options).forEach(function (x) {
@@ -1278,7 +1309,13 @@ vanillaSelectBox.prototype.empty = function () {
     Array.prototype.slice.call(this.listElements).forEach(function (x) {
         x.classList.remove("active");
     });
-    Array.prototype.slice.call(this.options).forEach(function (x) {
+    let parentElements = this.drop.querySelectorAll("li.grouped-option");
+    if(parentElements){
+        Array.prototype.slice.call(parentElements).forEach(function (x) {
+            x.classList.remove("checked");
+        });
+    }
+        Array.prototype.slice.call(this.options).forEach(function (x) {
         x.selected = false;
     });
     this.title.textContent = "";
