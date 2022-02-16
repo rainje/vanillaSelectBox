@@ -322,6 +322,7 @@ export default function vanillaSelectBox(domSelector, options) {
             this.inputBox = document.createElement("input");
             this.searchZone.appendChild(this.inputBox);
             this.inputBox.setAttribute("type", "text");
+            this.inputBox.setAttribute("class", "input");
             this.inputBox.setAttribute("id", "search_" + this.rootToken);
             if (this.maxOptionWidth < Infinity) {
                 this.searchZone.style.maxWidth = self.maxOptionWidth + 30 + "px";
@@ -330,7 +331,7 @@ export default function vanillaSelectBox(domSelector, options) {
 
             var para = document.createElement("p");
             this.ul.appendChild(para);
-            para.style.fontSize = "12px";
+            para.style.fontSize = "16px";
             para.innerHTML = "&nbsp;";
             this.ul.addEventListener("scroll", function (e) {
                 var y = this.scrollTop;
