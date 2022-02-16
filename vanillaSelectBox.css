@@ -29,19 +29,18 @@ li[data-parent].open:not(.hidden-search){
 
 .vsb-js-search-zone{
 	position:absolute;/*Don't change*/
-    z-index:1001;
+	z-index:1001;
 	width: 80%;
-	min-height:1.8em;
-	padding: 2px;
 	background-color: #fff;
+	height: 60px;
+	top: 0;
 }
 
 .vsb-js-search-zone input{
-	border: 1px solid grey;
-	margin-left: 2px;
-	width: 96%;
-	border-radius: 4px;
-	height: 25px !important;
+	height: 30px;
+	margin-left: 12px;
+	width: calc(100% - 7px);
+	margin-top: 15px;
 }
 
 .vsb-main{
@@ -91,6 +90,7 @@ li.short{
 .vsb-main button{
 	border: 0;
 	height: 38px;
+	font-size: 14px;
 }
 
 .vsb-main .title {
@@ -116,6 +116,7 @@ li.short{
 
 .vsb-main ul{
 	white-space: nowrap;
+	padding-right: 30px !important;
 }
 
 .vsb-menu li {
