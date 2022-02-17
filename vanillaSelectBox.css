@@ -37,7 +37,7 @@ li[data-parent].open:not(.hidden-search){
 }
 
 .vsb-js-search-zone input{
-	height: 30px !important;
+	height: 30px;
 	margin-left: 12px;
 	width: calc(100% - 7px);
 	margin-top: 15px;
