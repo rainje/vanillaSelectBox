@@ -331,7 +331,7 @@ export default function vanillaSelectBox(domSelector, options) {
 
             var para = document.createElement("p");
             this.ul.appendChild(para);
-            para.style.fontSize = "16px";
+            para.style.fontSize = "28px";
             para.innerHTML = "&nbsp;";
             this.ul.addEventListener("scroll", function (e) {
                 var y = this.scrollTop;
