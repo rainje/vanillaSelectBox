@@ -249,7 +249,7 @@ export default function vanillaSelectBox(domSelector, options) {
         this.main.setAttribute("id", "btn-group-" + this.rootToken);
         this.main.style.marginLeft = this.main.style.marginLeft;
         if (self.userOptions.stayOpen) {
-            this.main.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
+            this.main.style.minHeight = (this.userOptions.maxHeight + 15) + "px";
         }
 
         if (self.userOptions.stayOpen) {
@@ -294,11 +294,8 @@ export default function vanillaSelectBox(domSelector, options) {
         this.drop.style.zIndex = 2000 - this.instanceOffset;
         this.ul = document.createElement("ul");
         this.drop.appendChild(this.ul);
-        if (this.search) {
-            this.ul.style.maxHeight = this.userOptions.maxHeight + 15 + "px";
-        } else {
-            this.ul.style.maxHeight = this.userOptions.maxHeight + "px";
-        }
+
+        this.ul.style.maxHeight = this.userOptions.maxHeight + "px";
         this.ul.style.minWidth = this.ulminWidth + "px";
         this.ul.style.maxWidth = this.ulmaxWidth + "px";
         this.ul.style.minHeight = this.ulminHeight + "px";
@@ -554,7 +551,7 @@ export default function vanillaSelectBox(domSelector, options) {
         if (self.userOptions.stayOpen) {
             self.drop.style.visibility = "visible";
             self.drop.style.boxShadow = "none";
-            self.drop.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
+            self.drop.style.minHeight = (this.userOptions.maxHeight + 15) + "px";
             self.drop.style.position = "relative";
             self.drop.style.left = "0px";
             self.drop.style.top = "0px";
