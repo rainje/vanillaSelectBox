@@ -249,7 +249,7 @@ export default function vanillaSelectBox(domSelector, options) {
         this.main.setAttribute("id", "btn-group-" + this.rootToken);
         this.main.style.marginLeft = this.main.style.marginLeft;
         if (self.userOptions.stayOpen) {
-            this.main.style.minHeight = (this.userOptions.maxHeight + 15) + "px";
+            this.main.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
         }
 
         if (self.userOptions.stayOpen) {
@@ -551,7 +551,7 @@ export default function vanillaSelectBox(domSelector, options) {
         if (self.userOptions.stayOpen) {
             self.drop.style.visibility = "visible";
             self.drop.style.boxShadow = "none";
-            self.drop.style.minHeight = (this.userOptions.maxHeight + 15) + "px";
+            self.drop.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
             self.drop.style.position = "relative";
             self.drop.style.left = "0px";
             self.drop.style.top = "0px";
