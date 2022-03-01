@@ -294,8 +294,11 @@ export default function vanillaSelectBox(domSelector, options) {
         this.drop.style.zIndex = 2000 - this.instanceOffset;
         this.ul = document.createElement("ul");
         this.drop.appendChild(this.ul);
-
-        this.ul.style.maxHeight = this.userOptions.maxHeight + "px";
+        if (this.search) {
+            this.ul.style.maxHeight = this.userOptions.maxHeight + 15 + "px";
+        } else {
+            this.ul.style.maxHeight = this.userOptions.maxHeight + "px";
+        }
         this.ul.style.minWidth = this.ulminWidth + "px";
         this.ul.style.maxWidth = this.ulmaxWidth + "px";
         this.ul.style.minHeight = this.ulminHeight + "px";
