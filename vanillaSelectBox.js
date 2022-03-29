@@ -86,6 +86,7 @@ export default function vanillaSelectBox(domSelector, options) {
     this.disabledItems = [];
     this.ulminWidth = 140;
     this.ulmaxWidth = 280;
+    this.ulmaxHeight = 224;
     this.ulminHeight = 25;
     this.maxOptionWidth = Infinity;
     this.maxSelect = Infinity;
@@ -295,7 +296,7 @@ export default function vanillaSelectBox(domSelector, options) {
         this.ul = document.createElement("ul");
         this.drop.appendChild(this.ul);
 
-        this.ul.style.maxHeight = this.userOptions.maxHeight + "px";
+        this.ul.style.maxHeight = this.ulmaxHeight + "px";
         this.ul.style.minWidth = this.ulminWidth + "px";
         this.ul.style.maxWidth = this.ulmaxWidth + "px";
         this.ul.style.minHeight = this.ulminHeight + "px";
