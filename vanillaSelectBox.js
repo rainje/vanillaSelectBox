@@ -86,7 +86,7 @@ export default function vanillaSelectBox(domSelector, options) {
     this.disabledItems = [];
     this.ulminWidth = 140;
     this.ulmaxWidth = 280;
-    this.ulmaxHeight = 224;
+    this.ulmaxHeight = 218;
     this.ulminHeight = 25;
     this.maxOptionWidth = Infinity;
     this.maxSelect = Infinity;
