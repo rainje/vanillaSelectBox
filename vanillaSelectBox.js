@@ -324,6 +324,7 @@ export default function vanillaSelectBox(domSelector, options) {
             this.searchZone.appendChild(this.inputBox);
             this.inputBox.setAttribute("type", "text");
             this.inputBox.setAttribute("class", "input vsbi");
+            this.inputBox.autocomplete = "off";
             this.inputBox.setAttribute("id", "search_" + this.rootToken);
             if (this.maxOptionWidth < Infinity) {
                 this.searchZone.style.maxWidth = self.maxOptionWidth + 30 + "px";
